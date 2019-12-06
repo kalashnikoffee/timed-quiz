@@ -67,7 +67,7 @@ var quiz = {
     quiz.counter = 75;
     $('#counter').html(quiz.counter);
     quiz.currentQuestion++;
-    quiz.loadQuiestion();
+    quiz.loadQuestion();
 
   },
   timeUp: function(){
