@@ -31,12 +31,17 @@ var questions = [
     }
     ///etc.
   ];
-
+//START BUTTON-------------------
 $("#start").on("click", function(){
   $("#start").remove();
-});
+  quiz.loadQuestion();
+})
 
-//game
+$(document).on('click','.answer-button',function(e){
+  quiz.clicked(e);
+})
+
+//QUIZ ---------------------------
 var quiz = {
   questions:questions,
   currentQuestion:0,
@@ -45,15 +50,18 @@ var quiz = {
   incorrect:0,
   countdown: function(){
       quiz.counter--;
-      $("#counter").html(game.counter);
-      if(game.counter<=0){
+      $("#counter").html(quiz.counter);
+      if(quiz.counter<=0){
         console.log("TIME UP!");
-        game.timeUp();
+        quiz.timeUp();
       }
   },
   loadQuestion: function(){
-      timer = setInterval(game.countdown,1000);
-      $("#subWrapper").html("<h2>"+question[game.currentQuestion].question+"</h2>");
+      timer = setInterval(quiz.countdown,1000);
+      $("#subWrapper").html("<h2>"+questions[quiz.currentQuestion].questions+"</h2>");
+      for(var i=0;i<questions[quiz.currentQuestion].answers.length;i++){
+        $('#subwrapper').append('<button class="answer-button" id="button-'+i+'" data-name="'+questions[quiz.currentQuestion].answers[i]+'">'+questions[quiz.currentQuestion].answer[i]+'</button>');
+      }
   },
   nextQuestion: function(){
 
