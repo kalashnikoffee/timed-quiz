@@ -41,13 +41,22 @@ $(document).on('click','.answer-button',function(e){
   quiz.clicked(e);
 })
 
+//RESET BUTTON------------------
+$(document).on('click','#reset',function(){
+  quiz.reset();
+})
+
+//NEXT STEP!!! Make button to see high score, and enter it
+
 //QUIZ ---------------------------
 var quiz = {
   questions:questions,
   currentQuestion:0,
-  counter:75,
+  counter:15,
   correct:0,
   incorrect:0,
+  unanswered:0,
+  //---------------countdown---------------
   countdown: function(){
       quiz.counter--;
       $("#counter").html(quiz.counter);
@@ -56,6 +65,7 @@ var quiz = {
         quiz.timeUp();
       }
   },
+  //---------------load question---------------
   loadQuestion: function(){
       timer = setInterval(quiz.countdown,1000);
       $('#subwrapper').html('<h2>'+questions[quiz.currentQuestion].question+'</h2>');
@@ -63,34 +73,55 @@ var quiz = {
         $('#subwrapper').append('<button class="answer-button" id="button-'+i+'" data-name="'+questions[quiz.currentQuestion].answers[i]+'">'+questions[quiz.currentQuestion].answers[i]+'</button>');
       }
   },
+  //---------------next question---------------
   nextQuestion: function(){
-    quiz.counter = 75;
+    quiz.counter = 15;
     $('#counter').html(quiz.counter);
     quiz.currentQuestion++;
     quiz.loadQuestion();
 
   },
+  //---------------time up---------------
   timeUp: function(){
-
+    clearInterval(timer);
+    quiz.unanswered++;
+    $('#subwrapper').html('<h2>TIMES UP!</h2>');
+    $('#subwrapper').append('<h3>Correct answer: '+questions[quiz.currentQuestion].correctAnswer+'</h3>');
+    if(quiz.currentQuestion==questions.length-1){
+      setTimeout(quiz.results,3*1000);
+    }
+    else{
+      setTimeout(quiz.nextQuestion,3*1000);//--maybe fix this bit. not sure if it's the right count on questions.length
+    }
   },
+  //---------------results---------------
   results: function(){
+    clearInterval(timer);
+    $('#subwrapper').html("<h2>COMPLETE!</h2>");
+    $('#subwrapper').append("<h3>Correct: "+quiz.correct+"</h3>");
+    $('#subwrapper').append("<h3>Incorrect: "+quiz.incorrect+"</h3>");
+    $('#subwrapper').append("<h3>Unanswered: "+quiz.unanswered+"</h3>");
+    $('#subwrapper').append("<button id='reset'>RESET</button>");
+
 
   },
+  //---------------clicked---------------
   clicked: function(e){
     clearInterval(timer);
     if($(e.target).data("name")==questions[quiz.currentQuestion].correctAnswer){
-      quiz.answeredCorrectly();//correctAnswer should be correct instead?
+      quiz.answeredCorrectly();
     }
     else {
       quiz.answeredIncorrectly();
     }
 
   },
+  //---------------answered correctly---------------
   answeredCorrectly: function(){
     console.log("YOU ARE CORRECT");
     clearInterval(timer);
     quiz.correct++;
-    $('#subWrapper').html('<h2> YOU GOT IT RIGHT</h2>');
+    $('#subwrapper').html('<h2>CORRECT</h2>');
     if(quiz.currentQuestion==questions.length-1){
       setTimeout(quiz.results,3*1000);
     }
@@ -99,12 +130,13 @@ var quiz = {
     }
 
   },
+  //---------------answered incorrectly---------------
   answeredIncorrectly: function(){
     console.log("YOU ARE WRONG");
-    console.log("YOU ARE CORRECT");
     clearInterval(timer);
     quiz.incorrect++;
-    $('#subWrapper').html('<h2> YOU GOT IT WRONG</h2>');
+    $('#subwrapper').html('<h2>Incorrect</h2>');
+    $('#subwrapper').append('<h3>Correct answer: '+questions[quiz.currentQuestion].correctAnswer+'</h3>');
     if(quiz.currentQuestion==questions.length-1){
       setTimeout(quiz.results,3*1000);
     }
@@ -113,7 +145,14 @@ var quiz = {
     }
 
   },
+  //---------------reset---------------
   reset: function(){
+    quiz.currentQuestion = 0;
+    quiz.counter = 0;
+    quiz.correct = 0;
+    quiz.incorrect = 0;
+    quiz.unanswered = 0;
+    quiz.loadQuestion();
 
   },
 } 
