@@ -1,33 +1,33 @@
 var questions = [
     //QUESTION 1------------------
     {
-      title: "Commonly used data types DO NOT include:",
-      choices: ["strings", "booleans", "alerts", "numbers"],
-      answer: "alerts"
+      question: "Commonly used data types DO NOT include:",
+      answers: ["strings", "booleans", "alerts", "numbers"],
+      correctAnswer: "alerts"
     },
     //QUESTION 2------------------
     {
-      title: "The condition in an if / else statement is enclosed within ____.",
-      choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-      answer: "parentheses"
+      question: "The condition in an if / else statement is enclosed within ____.",
+      answers: ["quotes", "curly brackets", "parentheses", "square brackets"],
+      correctAnswer: "parentheses"
     },
     //QUESTION 3------------------
     {
-      title: "Bloopity Blop blip zip doop goop",
-      choices: ["jum", "jim", "jam", "jem"],
-      answer: "jum"
+      question: "Bloopity Blop blip zip doop goop",
+      answers: ["jum", "jim", "jam", "jem"],
+      correctAnswer: "jum"
     },
     //QUESTION 4------------------
     {
-      title: "libba labba limmy jimmy doober moober.",
-      choices: ["zip", "zap", "zup", "zop"],
-      answer: "zop"
+      question: "libba labba limmy jimmy doober moober.",
+      answers: ["zip", "zap", "zup", "zop"],
+      correctAnswer: "zop"
     },
     //QUESTION 5------------------
     {
-      title: "humba jo gagga lo wibble fo erbuh go.",
-      choices: ["wab", "wub", "wob", "wib"],
-      answer: "wub"
+      question: "humba jo gagga lo wibble fo erbuh go.",
+      answers: ["wab", "wub", "wob", "wib"],
+      correctAnswer: "wub"
     }
     ///etc.
   ];
@@ -58,12 +58,16 @@ var quiz = {
   },
   loadQuestion: function(){
       timer = setInterval(quiz.countdown,1000);
-      $("#subWrapper").html("<h2>"+questions[quiz.currentQuestion].questions+"</h2>");
+      $('#subwrapper').html('<h2>'+questions[quiz.currentQuestion].question+'</h2>');
       for(var i=0;i<questions[quiz.currentQuestion].answers.length;i++){
-        $('#subwrapper').append('<button class="answer-button" id="button-'+i+'" data-name="'+questions[quiz.currentQuestion].answers[i]+'">'+questions[quiz.currentQuestion].answer[i]+'</button>');
+        $('#subwrapper').append('<button class="answer-button" id="button-'+i+'" data-name="'+questions[quiz.currentQuestion].answers[i]+'">'+questions[quiz.currentQuestion].answers[i]+'</button>');
       }
   },
   nextQuestion: function(){
+    quiz.counter = 75;
+    $('#counter').html(quiz.counter);
+    quiz.currentQuestion++;
+    quiz.loadQuiestion();
 
   },
   timeUp: function(){
@@ -72,13 +76,41 @@ var quiz = {
   results: function(){
 
   },
-  clicked: function(){
+  clicked: function(e){
+    clearInterval(timer);
+    if($(e.target).data("name")==questions[quiz.currentQuestion].correctAnswer){
+      quiz.answeredCorrectly();//correctAnswer should be correct instead?
+    }
+    else {
+      quiz.answeredIncorrectly();
+    }
 
   },
   answeredCorrectly: function(){
+    console.log("YOU ARE CORRECT");
+    clearInterval(timer);
+    quiz.correct++;
+    $('#subWrapper').html('<h2> YOU GOT IT RIGHT</h2>');
+    if(quiz.currentQuestion==questions.length-1){
+      setTimeout(quiz.results,3*1000);
+    }
+    else{
+      setTimeout(quiz.nextQuestion,3*1000);
+    }
 
   },
   answeredIncorrectly: function(){
+    console.log("YOU ARE WRONG");
+    console.log("YOU ARE CORRECT");
+    clearInterval(timer);
+    quiz.incorrect++;
+    $('#subWrapper').html('<h2> YOU GOT IT WRONG</h2>');
+    if(quiz.currentQuestion==questions.length-1){
+      setTimeout(quiz.results,3*1000);
+    }
+    else{
+      setTimeout(quiz.nextQuestion,3*1000);
+    }
 
   },
   reset: function(){
