@@ -68,7 +68,8 @@ var quiz = {
   //---------------load question---------------
   loadQuestion: function(){
       timer = setInterval(quiz.countdown,1000);
-      $('#subwrapper').html('<h2>'+questions[quiz.currentQuestion].question+'</h2>');
+      $('#subwrapper').html("<h2 id='counter'>15</h2>");
+      $('#subwrapper').append('<h2>'+questions[quiz.currentQuestion].question+'</h2>');
       for(var i=0;i<questions[quiz.currentQuestion].answers.length;i++){
         $('#subwrapper').append('<button class="answer-button" id="button-'+i+'" data-name="'+questions[quiz.currentQuestion].answers[i]+'">'+questions[quiz.currentQuestion].answers[i]+'</button>');
       }
