@@ -31,9 +31,25 @@ var questions = [
     }
     ///etc.
   ];
+  var secondsUsed = 0;
+  var timeEl = document.querySelector(".time");
+  function startTime() {
+    var timerInterval = setInterval(function() {
+      secondsUsed++;
+      timeEl.textContent = secondsUsed;
+    }, 1000);
+  }
+  // var secondsUsed = 0;
+  // var timeEl = document.querySelector(".time");
+  // function timeUsed() {
+  //     secondsUsed++;
+  //     timeEl.textContent = secondsUsed;
+  //   }, 1000);
+  
 //START BUTTON-------------------
 $("#start").on("click", function(){
   $("#start").remove();
+  startTime();
   quiz.loadQuestion();
 })
 
@@ -105,17 +121,14 @@ var quiz = {
     $('#subwrapper').append("<h3>Unanswered: "+quiz.unanswered+"</h3>");
     $('#subwrapper').append("<h3>Time: </h3>");
     $('#subwrapper').append("<p>Submit your high score!</p>");
-    $('#subwrapper').append('<input type="text" name="FirstName" value="Initials" id="userInitials">');
-    $('#subwrapper').append('<input type="submit" id="userInitialButton"><br>');
+    $('#subwrapper').append(
+    '<form id="frm1" action="/action_page.php"> First name: <input type="text" name="fname"><br><input type="button" onclick="UserNameFunction()" value="Submit"></form>');
     $('#subwrapper').append("<button id='reset'>RESET</button>");
+
+
 
    
       localStorage.setItem("UserScore", quiz.correct);
-      localStorage.setItem("userInitials", userInitials.value);
-   
-
-
-
   },
   //---------------clicked---------------
   clicked: function(e){
