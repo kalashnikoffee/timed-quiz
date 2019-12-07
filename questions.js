@@ -115,14 +115,17 @@ var quiz = {
   //---------------results---------------
   results: function(){
     clearInterval(timer);
+    localStorage.setItem("Time", secondsUsed);
     $('#subwrapper').html("<h2>COMPLETE!</h2>");
     $('#subwrapper').append("<h3>Correct: "+quiz.correct+"</h3>");
     $('#subwrapper').append("<h3>Incorrect: "+quiz.incorrect+"</h3>");
     $('#subwrapper').append("<h3>Unanswered: "+quiz.unanswered+"</h3>");
     $('#subwrapper').append("<h3>Time: </h3>");
     $('#subwrapper').append("<p>Submit your high score!</p>");
-    $('#subwrapper').append(
-    '<form id="frm1" action="/action_page.php"> First name: <input type="text" name="fname"><br><input type="button" onclick="UserNameFunction()" value="Submit"></form>');
+    $('#subwrapper').append('<input type="text" name="userNameName" id="userName" placeholder="Name" />'); //Right here is the problem area, if you're reading this
+    $('#subwrapper').append('<button>Submit</button><br>');//GAAAAAAH 
+    //$('#subwrapper').append(
+    //'<form id="frm1" action="/action_page.php"> First name: <input type="text" name="fname"><br><input type="button" onclick="UserNameFunction()" value="Submit"></form>');
     $('#subwrapper').append("<button id='reset'>RESET</button>");
 
 

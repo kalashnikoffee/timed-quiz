@@ -45,25 +45,12 @@
 ![alt text](Assets\css\images\Web-APIs-homework-demo.gif "reference image")
 
 
-## Getting Started
-
-Clone or copy the files from the repo to test/develop from your own machine. the live site is functional without any additional work on the part of the user. 
-
-
-### Prerequisites
-
-web browser and internet connection
-
-
-### Installing
-
-NA
-
 ## Built With
 
 * [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 * [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+* [JQuery](https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js)
 
 ## Deployed Link
 
