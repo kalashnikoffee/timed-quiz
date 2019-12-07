@@ -56,6 +56,7 @@ var quiz = {
   correct:0,
   incorrect:0,
   unanswered:0,
+  totaltime:0,
   //---------------countdown---------------
   countdown: function(){
       quiz.counter--;
@@ -89,10 +90,10 @@ var quiz = {
     $('#subwrapper').html('<h2>TIMES UP!</h2>');
     $('#subwrapper').append('<h3>Correct answer: '+questions[quiz.currentQuestion].correctAnswer+'</h3>');
     if(quiz.currentQuestion==questions.length-1){
-      setTimeout(quiz.results,3*1000);
+      setTimeout(quiz.results,2*1000);
     }
     else{
-      setTimeout(quiz.nextQuestion,3*1000);//--maybe fix this bit. not sure if it's the right count on questions.length
+      setTimeout(quiz.nextQuestion,1000);//--maybe fix this bit. not sure if it's the right count on questions.length
     }
   },
   //---------------results---------------
@@ -102,7 +103,17 @@ var quiz = {
     $('#subwrapper').append("<h3>Correct: "+quiz.correct+"</h3>");
     $('#subwrapper').append("<h3>Incorrect: "+quiz.incorrect+"</h3>");
     $('#subwrapper').append("<h3>Unanswered: "+quiz.unanswered+"</h3>");
+    $('#subwrapper').append("<h3>Time: </h3>");
+    $('#subwrapper').append("<p>Submit your high score!</p>");
+    $('#subwrapper').append('<input type="text" name="FirstName" value="Initials" id="userInitials">');
+    $('#subwrapper').append('<input type="submit" id="userInitialButton"><br>');
     $('#subwrapper').append("<button id='reset'>RESET</button>");
+
+   
+      localStorage.setItem("UserScore", quiz.correct);
+      localStorage.setItem("userInitials", userInitials.value);
+   
+
 
 
   },
@@ -124,10 +135,10 @@ var quiz = {
     quiz.correct++;
     $('#subwrapper').html('<h2>CORRECT</h2>');
     if(quiz.currentQuestion==questions.length-1){
-      setTimeout(quiz.results,3*1000);
+      setTimeout(quiz.results,1000);
     }
     else{
-      setTimeout(quiz.nextQuestion,3*1000);
+      setTimeout(quiz.nextQuestion,1000);
     }
 
   },
@@ -139,10 +150,10 @@ var quiz = {
     $('#subwrapper').html('<h2>Incorrect</h2>');
     $('#subwrapper').append('<h3>Correct answer: '+questions[quiz.currentQuestion].correctAnswer+'</h3>');
     if(quiz.currentQuestion==questions.length-1){
-      setTimeout(quiz.results,3*1000);
+      setTimeout(quiz.results,1000);
     }
     else{
-      setTimeout(quiz.nextQuestion,3*1000);
+      setTimeout(quiz.nextQuestion,1000);
     }
 
   },
